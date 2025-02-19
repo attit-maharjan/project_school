@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Student List{% endblock %}
+
+{% block content %}
+    <h2>Student Information</h2>
+    {% if students %}
+        <ul>
+            {% for student in students %}
+                <li>
+                    <strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}<br>
+                    <strong>Date of Birth:</strong> {{ student.date_of_birth }}<br>
+                    <strong>Registration Date:</strong> {{ student.registration_date }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No students available.</p>
+    {% endif %}
+    <a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}
