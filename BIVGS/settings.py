@@ -89,7 +89,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'school_project.urls'
+ROOT_URLCONF = 'BIVGS.urls'
 
 TEMPLATES = [
     {
@@ -117,7 +117,7 @@ TEMPLATES = [
 
 
 
-WSGI_APPLICATION = 'school_project.wsgi.application'
+WSGI_APPLICATION = 'BIVGS.wsgi.application'
 
 
 # Database
