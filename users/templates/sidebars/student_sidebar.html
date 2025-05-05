@@ -1,0 +1,39 @@
+<!-- sidebars/student_sidebar.html -->
+
+<!-- 🎓 Academic Tools -->
+<p class="text-xs uppercase text-blue-200 pt-4">Academic Tools</p>
+<div class="space-y-2 mt-2">
+    <a href="{% url 'users:student_subjects' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-book mr-2"></i> My Subjects
+    </a>
+    
+    <a href="{% url 'users:student_exam_schedule' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-graduation-cap mr-2"></i> My Exams Timetable
+    </a>
+</div>
+
+
+
+<!-- 📈 Reports & Analytics -->
+<p class="text-xs uppercase text-blue-200 pt-6">Reports & Analytics</p>
+<div class="space-y-2 mt-2 pb-8">
+    <a href="{% url 'users:student_exam_summary' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-list-ol mr-2"></i> My Grades
+    </a>
+    <a href="{% url 'users:student_exam_performance' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-chart-line mr-2"></i> Performance Stats
+    </a>
+    <a href="{% url 'users:student_exam_insights' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-chart-pie mr-2"></i> Grade Insights
+    </a>
+    <a href="{% url 'users:student_exam_report_card' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-file-alt mr-2"></i> Report Card
+    </a>
+    <a href="{% url 'users:student_exam_comments' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-comments mr-2"></i> Subject Comments
+    </a>
+    <a href="{% url 'users:exam_report_card_pdf' %}" class="block px-3 py-2 rounded bs-student-btn transition">
+        <i class="fas fa-download mr-2"></i> Report Card (PDF)
+    </a>
+</div>
+

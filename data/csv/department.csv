@@ -1,0 +1,7 @@
+code,name,description,hod,is_active
+MAT,Mathematics,"Focuses on developing problem-solving skills, logical reasoning, and mathematical understanding across algebra, geometry, calculus, and statistics",leah_fieseler@testteacher.no,TRUE
+ENG,English,"Enhances reading, writing, and communication skills while fostering literary analysis and critical thinking through classic and contemporary texts.",esther_brinch@testteacher.no,TRUE
+SCI,Science,"Explores biological, chemical, and physical processes in the natural world, emphasizing inquiry-based learning and scientific experimentation.",martha_andersen@testteacher.no,TRUE
+ICT,Computer Science,"Covers computing fundamentals, programming, data structures, and responsible digital citizenship, preparing students for the tech-driven future.",rachel_wang@testteacher.no,TRUE
+HUM,Humanities,"Encourages understanding of history, geography, philosophy, and cultures to develop global awareness, empathy, and analytical skills.",anna_nerstad@testteacher.no,TRUE
+ADM,Administration,Responsible for the overall management and coordination of school operations,simon_galle@testteacher.no,TRUE

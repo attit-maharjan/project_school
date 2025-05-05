@@ -1,0 +1,60 @@
+{% extends "base/base_dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-custom-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl w-full space-y-8 p-8 bg-white dark:bg-gray-800 shadow-2xl rounded-2xl">
+        <div class="flex flex-col items-center space-y-4">
+            <!-- Profile Image -->
+            <div>
+                {% if user.profile_image %}
+                    <img class="h-32 w-32 rounded-full object-cover shadow-md" src="{{ user.profile_image.url }}" alt="Profile Photo">
+                {% else %}
+                    <img class="h-32 w-32 rounded-full object-cover shadow-md" src="{% static 'auth/images/default.png' %}" alt="Default Photo">
+                {% endif %}
+            </div>
+
+            <!-- Name and Role -->
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-custom-primary">{{ user.first_name }} {{ user.last_name }}</h1>
+                <p class="text-sm text-gray-500">{{ user.get_role_display }}</p>
+            </div>
+
+            <!-- Edit Profile Button -->
+            <div>
+                <a href="{% url 'users:edit_profile' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-custom-primary hover:bg-custom-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-primary transition">
+                    Edit Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <!-- Personal Info -->
+            <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Personal Information</h3>
+                <p><span class="font-medium">Initials:</span> {{ user.initials|default:"-" }}</p>
+                <p><span class="font-medium">Date of Birth:</span> {{ user.dob|date:"F j, Y" }}</p>
+                <p><span class="font-medium">Gender:</span> {{ user.get_gender_display|default:"-" }}</p>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Contact Information</h3>
+                <p><span class="font-medium">Phone:</span> {{ user.phone_number|default:"-" }}</p>
+                <p><span class="font-medium">Email:</span> {{ user.email }}</p>
+            </div>
+
+            <!-- Address Info -->
+            <div class="md:col-span-2 bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Address</h3>
+                <p><span class="font-medium">Street:</span> {{ user.street_address|default:"-" }}</p>
+                <p><span class="font-medium">City:</span> {{ user.city|default:"-" }}</p>
+                <p><span class="font-medium">State/Province:</span> {{ user.state_province|default:"-" }}</p>
+                <p><span class="font-medium">Postal Code:</span> {{ user.postal_code|default:"-" }}</p>
+                <p><span class="font-medium">Country:</span> {{ user.country.name|default:"-" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

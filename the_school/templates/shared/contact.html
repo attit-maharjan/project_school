@@ -1,0 +1,33 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}Contact Details for {{ school_settings.school_name|default:"BIVGS – Your Ultimate School Management System!" }}{% endblock title %}
+
+    <!-- Load static assets, Bootstrap, Font Awesome here -->
+    {% block extra_head %}
+    {% endblock %}
+
+
+            <!-- Header content goes here -->
+            <!-- Public Navbar Block -->
+            {% block public_navbar %}
+                {% include 'shared/nav_public.html' %}
+            {% endblock %}
+
+
+
+            <!-- Main content of the page -->
+            {% block content %}
+                {% include 'shared/includes/contact_include.html' %}
+            {% endblock %}
+
+            
+
+            <!-- Footer content goes here -->
+            {% block footer %}
+                {% include 'shared/footer_public.html' %}           
+            {% endblock %}
+
+
+
+    

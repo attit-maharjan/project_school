@@ -1,0 +1,64 @@
+{% extends "base/base_dashboard.html" %}
+{% load static %}
+
+{% block title %}
+    {{ user.get_full_name|default:"Student" }} Exams | {{ school_settings.school_name|default:"School" }}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-6">
+
+    <!-- 📚 Header -->
+    <div>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Exam Schedule</h1>
+        <p class="text-gray-500 text-sm">Academic Year: {{ academic_year|default:"-" }}</p>
+        <p class="text-gray-500 text-sm">Class Group: {{ class_group|default:"-" }}</p>
+    </div>
+
+    <!-- 📅 Exams List -->
+    <div class="overflow-x-auto bg-white rounded-2xl shadow-md p-6">
+        {% if exams %}
+        <table class="w-full text-left">
+            <thead class="border-b text-gray-600 uppercase text-xs">
+                <tr>
+                    <th class="py-3">Exam Code</th>
+                    <th class="py-3">Exam Name</th>
+                    <th class="py-3">Created By</th>
+                    <th class="py-3">Date Conducted</th>
+                    <th class="py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                {% for exam in exams %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3">{{ exam.exam_code }}</td>
+                    <td class="py-3 font-semibold">{{ exam.exam_name }}</td>
+                    <td class="py-3">
+                        {% if exam.teacher_name %}
+                            <div>{{ exam.teacher_name }}</div>
+                            <div class="text-xs text-gray-400">{{ exam.teacher_email }}</div>
+                        {% else %}
+                            <div class="text-gray-400">N/A</div>
+                        {% endif %}
+                    </td>
+                    <td class="py-3">{{ exam.date_conducted|date:"M d, Y" }}</td>
+                    <td class="py-3">
+                        {% if exam.status == "Done" %}
+                            <span class="inline-block px-2 py-1 text-green-600 bg-green-100 rounded-full text-xs font-semibold">Done</span>
+                        {% else %}
+                            <span class="inline-block px-2 py-1 text-yellow-600 bg-yellow-100 rounded-full text-xs font-semibold">Upcoming</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center text-gray-400 py-10">
+            No exams scheduled yet.
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

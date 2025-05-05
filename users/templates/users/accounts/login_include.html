@@ -1,0 +1,43 @@
+<!-- templates/users/accounts/login_include.html -->
+{% load widget_tweaks %}
+{% load static %}
+
+<form method="post" novalidate class="w-full max-w-sm space-y-6">
+    {% csrf_token %}
+    <h2 class="text-3xl font-bold text-center bs-h2-color">
+        {{ school_settings.school_name|default:"Our School" }} Portal
+    </h2>
+    <p class="text-center text-gray-500 text-sm mb-6">Login to your account</p>
+
+    {% if form.non_field_errors %}
+      <p class="text-red-600 text-sm">{{ form.non_field_errors }}</p>
+    {% endif %}
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">{{ form.username.label }}</label>
+        {{ form.username|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }}
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">{{ form.password.label }}</label>
+        {{ form.password|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }}
+    </div>
+
+    <div class="flex items-center">
+        {{ form.remember_me }}
+        <label for="remember_me" class="ml-2 block text-sm text-gray-600">
+            {{ form.remember_me.label }}
+        </label>
+    </div>
+
+    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition duration-150 ease-in-out">
+        Login
+    </button>
+
+    <!-- 🔗 Continue without login -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'the_school:index' %}" class="text-sm text-gray-500 hover:text-indigo-600 transition-colors">
+            <i class="fas fa-home mr-1"></i>Continue without login
+        </a>
+    </div>
+</form>

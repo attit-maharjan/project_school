@@ -1,0 +1,137 @@
+{% extends 'base/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}
+    {{ user.get_full_name|default:"Student" }} Performance Statistics | {{ school_settings.school_name|default:"School" }}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">📊 Performance Statistics</h1>
+        <p class="mt-2 text-sm text-gray-600">
+            Academic Year: <strong>{{ academic_year }}</strong> | Class Group: <strong>{{ class_group }}</strong>
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Bar Chart -->
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Score vs Class Average</h2>
+            <canvas id="barChart" class="w-full h-[350px]"></canvas>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Progress Over Time</h2>
+            <canvas id="lineChart" class="w-full h-[350px]"></canvas>
+        </div>
+    </div>
+
+    <div class="mt-10">
+        <h2 class="text-md font-semibold mb-2">📘 Exam Key</h2>
+        <ul class="bg-white p-4 rounded shadow divide-y divide-gray-100 text-sm text-gray-700">
+            {% for code, title in code_title_map.items %}
+                <li class="py-1"><strong class="text-blue-700">{{ code }}</strong> — {{ title }}</li>
+            {% empty %}
+                <li class="py-1 text-gray-400">No exam codes found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = {{ labels|safe }};
+    const studentScores = {{ student_scores|safe }};
+    const classAvgScores = {{ class_avg_scores|safe }};
+    const examCodeMap = {{ exam_code_map_js|safe }};
+
+    const barData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'My Score',
+                backgroundColor: '#3b82f6',
+                borderRadius: 4,
+                data: studentScores
+            },
+            {
+                label: 'Class Average',
+                backgroundColor: '#e5e7eb',
+                borderRadius: 4,
+                data: classAvgScores
+            }
+        ]
+    };
+
+    const lineData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'My Score',
+                borderColor: '#3b82f6',
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                data: studentScores
+            },
+            {
+                label: 'Class Average',
+                borderColor: '#9ca3af',
+                backgroundColor: 'transparent',
+                tension: 0.3,
+                data: classAvgScores
+            }
+        ]
+    };
+
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: barData,
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            const code = context[0].label;
+                            return `${code} — ${examCodeMap[code] || 'Exam'}`;
+                        }
+                    }
+                },
+                legend: { position: 'top' },
+                title: { display: true, text: 'Exam Scores vs Class Average' }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: lineData,
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            const code = context[0].label;
+                            return `${code} — ${examCodeMap[code] || 'Exam'}`;
+                        }
+                    }
+                },
+                legend: { position: 'top' },
+                title: { display: true, text: 'Score Progress Over Time' }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: 100
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top public-navbar-blur">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center public-navbar-brand" href="{% url 'the_school:index' %}">
+      {% if school_settings.school_logo %}
+        <img src="{{ school_settings.school_logo.url }}" alt="School Logo" class="img-fluid rounded">
+      {% else %}
+        {{ school_settings.school_name|default:"BIVGS" }}
+      {% endif %}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {% block navbar_links %}{% endblock %}
+      </ul>
+    </div>
+  </div>
+</nav>

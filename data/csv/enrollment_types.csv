@@ -1,0 +1,6 @@
+Code,Name,Description
+FRESH,Fresh Enrollment,New learner with no prior classes in school
+TRANSFER,Transfer Student,Joined from another school
+PROMOTED,System Promotion,Auto-promotion from prior class group
+REPEAT,Repeat Year,Re-enrolled in the same grade
+RETURN,Re-enrollment,Dropped out:- now back again

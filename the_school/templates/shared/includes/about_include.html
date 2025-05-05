@@ -1,0 +1,68 @@
+{% extends 'shared/includes/public_pages_base.html' %}
+{% load static %}
+
+<!-- ============================================
+     Public-facing template used for frontend pages.
+     Pages using this include: Home (index), About, Contact,
+     Privacy Policy, and Terms of Service.
+     Uses shared base template: base_public.html
+     ============================================ -->
+
+<!-- Carousel Container inside bivgs-feature -->
+
+<!-- Just a heading and a single Paragraph -->
+<!-- EG: <h2 class="bivgs-feature-heading">First Feature Heading <span class="text-muted">It’ll blow your mind.</span></h2> -->
+<!-- EG: <p class="bivgs-feature-description">Some great placeholder content for the first feature here. Imagine some exciting prose here.</p> -->
+{% block page_header_description %}
+    <h2 class="bivgs-feature-heading">
+        {% if school_settings.about_us_subheading1 %}
+            {{ school_settings.about_us_subheading1 }}
+        {% else %}
+            <span class="text-muted">No subheading available.</span>
+        {% endif %}
+    </h2>
+
+    <p class="bivgs-feature-description">
+        {% if school_settings.about_us_paragraph1 %}
+            {{ school_settings.about_us_paragraph1 }}
+        {% else %}
+            <span class="text-muted">No description available.</span>
+        {% endif %}
+    </p>
+
+    {% if school_settings.about_us_subheading2 %}
+        <h3 class="bivgs-feature-heading">
+            {{ school_settings.about_us_subheading2 }}
+        </h3>
+    {% endif %}
+
+    {% if school_settings.about_us_paragraph2 %}
+        <p class="bivgs-feature-description">
+            {{ school_settings.about_us_paragraph2 }}
+        </p>
+    {% endif %}
+
+    {% if school_settings.about_us_paragraph3 %}
+        <p class="bivgs-feature-description">
+            {{ school_settings.about_us_paragraph3 }}
+        </p>
+    {% endif %}
+{% endblock %}
+
+<!-- Image symbolizing summary of the page e.g. contacts. size 800 * 663 -->
+<!-- Example: <img src="{% static 'shared/images/index_banner_800_663.png' %}" alt="Index Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image"> -->
+{% block page_summary_image %}
+     <img src="{% static 'shared/images/about_banner_800_663.png' %}" alt="About us Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image">
+{% endblock %}
+
+<!-- All page details here -->
+<!-- Example usage:
+     <h2 class="bivgs-feature-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+     <p class="bivgs-feature-description">Another feature? Of course. More placeholder content here to give you an idea of how this layout works with actual real-world content.</p>
+-->
+{% block page_details %}
+        {% include 'shared/includes/call_to_action_include.html' %}
+{% endblock %}
+
+
+    

@@ -1,0 +1,37 @@
+<!-- templates/base/auth_base.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Login - BIVGS{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    
+    <!-- FontAwesome for social icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom override styles for Tailwind + Bootstrap -->
+    <link rel="stylesheet" href="{% static 'shared/css/bootstrap_overrides_for_tailwind.css' %}">
+
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Image section -->
+        <div class="hidden md:block md:w-1/2">
+            {% block auth_image_block %}{% endblock %}
+        </div>
+
+        <!-- Login form section -->
+        <div class="w-full md:w-1/2 p-8 flex items-center justify-center">
+            {% block auth_content_block %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

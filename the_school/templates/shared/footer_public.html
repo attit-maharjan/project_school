@@ -1,0 +1,154 @@
+{% load static %}
+<footer class="public-footer bg-dark text-light py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- About Us -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="mb-4">
+                    <i class="fas fa-certificate me-2"></i>Licensed to:
+                </h5>
+                <p class="mb-4">
+                    <i class="fas fa-school me-2"></i>{{ school_settings.school_name|default:"BIVGS" }}
+                </p>
+                <p class="mb-0">
+                    <i class="fas fa-copyright me-2"></i>&copy; {{ school_settings.established_year|default:2025 }}. All rights reserved.
+                </p>
+            </div>
+        
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="mb-4"><i class="fas fa-link me-2"></i>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'the_school:index' %}" class="public-footer-link"><i class="fas fa-home me-2"></i>Home</a></li>
+                    <li class="mb-2"><a href="{% url 'the_school:contact' %}" class="public-footer-link"><i class="fas fa-envelope me-2"></i>Contact</a></li>
+                </ul>
+            </div>
+        
+            <!-- Info Hub -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="mb-4"><i class="fas fa-info-circle me-2"></i>Info Hub</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'the_school:about' %}" class="public-footer-link"><i class="fas fa-user-friends me-2"></i>About Us</a></li>
+                    <li class="mb-2"><a href="{% url 'the_school:privacy_policy' %}" class="public-footer-link"><i class="fas fa-shield-alt me-2"></i>Privacy Policy</a></li>
+                    <li class="mb-2"><a href="{% url 'the_school:terms_of_service' %}" class="public-footer-link"><i class="fas fa-file-contract me-2"></i>Terms of Service</a></li>
+                </ul>
+            </div>
+        
+            <!-- Contact Info -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="mb-4"><i class="fas fa-info-circle me-2"></i>Contact Info</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-map-marker-alt me-2"></i>{{ school_settings.address|default:"123 Business Street, City, Country" }}</li>
+                    <li class="mb-3"><i class="fas fa-phone me-2"></i><a href="tel:{{ school_settings.contact_number }}" class="public-footer-link">{{ school_settings.contact_number|default:"+1 (234) 567-890" }}</a></li>
+                    <li class="mb-3"><i class="fas fa-envelope me-2"></i><a href="mailto:{{ school_settings.email_address }}" class="public-footer-link">{{ school_settings.email_address|default:"contact@example.com" }}</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Social Media Links Section -->
+        <div class="row mt-4">
+            <hr class="mb-4">
+            <div class="col-12 text-center"> <!-- Add text-center here -->
+                <h5 class="mb-4"><i class="fas fa-share-alt me-2"></i>Follow Us</h5>
+                <div class="public-social-links">
+                    {% if school_settings.social_media_links %}
+                        {% for platform, url in school_settings.social_media_links.items %}
+                            <a href="{{ url }}" target="_blank" class="public-social-icon {% if platform == 'Facebook' %}bg-primary{% elif platform == 'Twitter' %}bg-info{% elif platform == 'Instagram' %}bg-danger{% elif platform == 'LinkedIn' %}bg-primary{% endif %} mx-2">
+                                <i class="fab fa-{{ platform|lower }}"></i>
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Footer bottom row -->
+
+        <!-- Accreditation Section -->
+        <div class="row mt-5 public-accreditation-section">
+            <div class="col-12">
+                <h5 class="mb-4 public-footer-section-title">
+                    <i class="fas fa-award me-2"></i>Our Accreditors
+                </h5>
+
+                {% if accreditation_details %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover text-light mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Registration No.</th>
+                                    <th scope="col">Website</th>
+                                    <th scope="col">Accreditation Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for accreditor in accreditation_details %}
+                                    <tr>
+                                        <td class="align-middle">{{ accreditor.name }}</td>
+                                        <td class="align-middle">{{ accreditor.registration_number }}</td>
+                                        <td class="align-middle">
+                                            {% if accreditor.website %}
+                                                <a href="{{ accreditor.website }}" target="_blank" class="text-info"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Visit Website">
+                                                    <i class="fas fa-up-right-from-square fa-lg"></i>
+                                                </a>
+                                            {% else %}
+                                                <span class="text-muted fst-italic">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="align-middle">{{ accreditor.accreditation_date|date:"F d, Y" }}</td>
+                                        <td class="align-middle">
+                                            <span class="badge rounded-pill
+                                                {% if accreditor.status == 'Active' %}
+                                                    bg-success
+                                                {% elif accreditor.status == 'Pending' %}
+                                                    bg-warning text-dark
+                                                {% else %}
+                                                    bg-danger
+                                                {% endif %}">
+                                                {{ accreditor.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No accreditation details available at this time.</p>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <hr class="mb-4">
+                <div class="text-center text-light">
+                    <p class="mt-4 mb-0">
+                        <strong><i class="fas fa-bolt"></i> Powered by 
+                            <a href="https://ai.walsoftcomputers.com/" target="_blank" class="text-light">BIVGS</a>
+                        </strong>
+                        <br>
+                        <i class="fas fa-envelope"></i> <strong>Email:</strong> 
+                        <a href="mailto:bivgs_central@gmai.com" class="text-light">bivgs_central@gmai.com</a>
+                        <br>
+                        <i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 
+                        BI - Handelshøyskolen, Nydalsveien 37, 0484 Oslo, Norway
+                    </p>
+                    <p class="mb-0">&copy; 2025 <i class="fas fa-university"></i> BIVGS. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+

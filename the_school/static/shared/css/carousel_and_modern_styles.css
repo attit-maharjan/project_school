@@ -1,0 +1,264 @@
+/* =====================================================
+   File: carousel_and_modern_styles.css
+   Purpose: Carousel UI & modern interactive enhancements
+   ===================================================== */
+
+/* Google Font: Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =============================================
+   BIVGS Carousel - Custom Roles Text Carousel
+   ============================================= */
+.bivgs-carousel {
+  background-color: #000;
+  padding: 2.5rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: #e4e6eb;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.bivgs-carousel-content {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem 2rem;
+}
+
+.bivgs-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.bivgs-feature-list {
+  padding-left: 0;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+
+.bivgs-feature-list li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bivgs-feature-list i {
+  font-size: 1.2rem;
+}
+
+/* ================================
+   Carousel Base Styles
+   ================================ */
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: none;
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+/* Fade effect for carousel */
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition-property: opacity;
+  transform: none;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end {
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0s 0.6s;
+}
+
+/* Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 0.9;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 2rem;
+  height: 2rem;
+  background-size: 100% 100%;
+}
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 15%;
+  right: 15%;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 2;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 30px;
+  height: 3px;
+  margin: 0 3px;
+  background-color: #fff;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
+  border: 0;
+}
+
+.carousel-indicators .active {
+  opacity: 1;
+}
+
+  
+/* ==========================================================================
+   Base Placeholder Image Styling
+   ========================================================================== */
+
+/* Styled image placeholder for small to medium screens */
+.bd-styled-img {
+    font-size: 1.125rem;              /* Moderate font size for better visibility */
+    text-anchor: middle;             /* Centers text inside SVG */
+    -webkit-user-select: none;       /* Prevents user from selecting the image text (WebKit browsers) */
+    -moz-user-select: none;          /* Prevents user selection (Firefox) */
+    user-select: none;               /* Standard property to prevent selection */
+  }
+  
+  /* ==========================================================================
+     Responsive Adjustments for Larger Screens
+     ========================================================================== */
+  
+  @media (min-width: 768px) {
+    /* Larger styled image for wider viewports (like tablets and desktops) */
+    .bd-styled-img-lg {
+      font-size: 3.5rem;             /* Significantly larger font for high visibility */
+    }
+  }
+  
+
+/* Class for creating a styled horizontal rule with gradient colors */
+.bivgs-divider {
+    border: 0; /* Remove the default border */
+    height: 3px; /* Set the thickness of the horizontal rule */
+    background: linear-gradient(to right, darkred, orange, blue); /* Apply a gradient from dark red to orange to blue */
+    margin: 20px 0; /* Add spacing around the horizontal rule for better separation */
+  }
+
+.bivgs-feature {
+    /* Add padding and fallback background color */
+    padding: 2rem;
+    background-color: #f8f9fa;
+  
+    /* Add background image */
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+    /* Apply rounded corners */
+    border-radius: 1rem;
+  
+    /* Ensure content doesn't overflow rounded corners */
+    overflow: hidden;
+  }
+
+  
+  .bivgs-feature .carousel-holder{
+    /* Add padding and fallback background color */
+    padding: 2rem;
+    background-color: #000;
+  
+
+  
+    /* Ensure content doesn't overflow rounded corners */
+    overflow: hidden;
+  }
+
+
+.bivgs-feature .col-md-7 {
+    /* Position it to start from bottom right */
+    background-position: bottom right;
+  
+    /* Prevent background from repeating */
+    background-repeat: no-repeat;
+  
+    /* Ensure it covers the container responsively */
+    background-size: cover;
+  
+    /* Optional: add padding or fallback background color */
+    padding: 2rem;
+    background-color: #f8f9fa; /* Light fallback */
+
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .bivgs-feature .col-md-12 {     
+
+    padding-top: 2rem;
+    background-color: #f8f9fa; /* Light fallback */
+
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.3s ease-in-out;
+  }
+  
+ 
+
+
+  .bivgs-feature-heading {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }  
+
+
+  
+  .public-pages-container {
+    background-color: #000; /* Black */
+}
+

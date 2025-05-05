@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 🌐 Meta and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e3a8a">  <!-- The primary sidebar/nav color -->
+    <title>{% block title %}Dashboard | {{ school_settings.school_name|default:"School" }}{% endblock %}</title>
+
+    <!-- 🧠 Favicon -->
+    {% if user.is_authenticated %}
+        {% if user.profile_image %}
+            <link rel="icon" href="{{ user.profile_image.url }}" type="image/png">
+        {% elif user.gender == 'male' %}
+            <link rel="icon" href="{% static 'users/default_images/man.png' %}" type="image/png">
+        {% elif user.gender == 'female' %}
+            <link rel="icon" href="{% static 'users/default_images/woman.png' %}" type="image/png">
+        {% elif user.school %}
+            <link rel="icon" href="{{ user.school.school_logo.url }}" type="image/png">
+        {% else %}
+            <link rel="icon" href="{% static 'logos/bivgs_logo.png' %}" type="image/png">
+        {% endif %}
+    {% else %}
+        <link rel="icon" href="{% static 'logos/bivgs_logo.png' %}" type="image/png">
+    {% endif %}
+
+    <!-- 💅 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 🌟 Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!-- 🎨 Custom Tailwind Overrides -->
+    <link rel="stylesheet" href="{% static 'shared/css/bootstrap_overrides_for_tailwind.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- 🔝 NAVBAR -->
+    <nav class="bs-navbar-bg text-white border-b shadow-md fixed w-full z-30 top-0">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            
+            <!-- 🏫 Logo + Name -->
+            <div class="flex items-center space-x-3">
+                <img loading="lazy" src="{{ school_settings.school_logo.url|default_if_none:'/static/logos/bivgs_logo.png' }}" alt="Logo" class="h-10 w-auto rounded shadow-sm">
+                <span class="text-xl font-bold text-gray-100 hidden sm:block uppercase">
+                    {{ school_settings.school_name|default:"BIVGS" }}
+                </span>
+            </div>
+
+            <!-- 🚀 Quick Actions -->
+            <div class="flex items-center space-x-6">
+                <a href="{% url 'the_school:index' %}" class="text-gray-300 hover:text-white" aria-label="Home">
+                    <i class="fas fa-home text-xl"></i>
+                </a>
+                <a href="{% url 'users:role_dashboard' %}" class="text-gray-300 hover:text-white" aria-label="Dashboard">
+                    <i class="fas fa-th-large text-xl"></i>
+                </a>
+                <form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="text-gray-300 hover:text-red-500" aria-label="Logout">
+                        <i class="fas fa-sign-out-alt text-xl"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- 🍔 Hamburger -->
+            <div class="md:hidden">
+                <button id="sidebar-toggle" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle Sidebar">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 🔗 SIDEBAR + MAIN WRAPPER -->
+    <div class="flex pt-16">
+        
+        <!-- 📚 SIDEBAR -->
+        <aside id="sidebar" class="w-64 bs-sidebar-bg text-white fixed top-16 left-0 h-screen overflow-y-auto transform transition-transform duration-300 ease-in-out md:translate-x-0 -translate-x-full z-20 pb-24">
+            <div class="p-4 border-b border-blue-800 text-center">
+
+                <!-- 👤 User Profile Picture -->
+                {% if user.profile_image %}
+                    <img loading="lazy" src="{{ user.profile_image.url }}" class="h-16 w-16 rounded-full mx-auto mb-2 object-cover" alt="Profile Photo">
+                {% else %}
+                    {% if user.gender == 'male' %}
+                        <img loading="lazy" src="{% static 'profile_photos/man.png' %}" class="h-16 w-16 rounded-full mx-auto mb-2 object-cover" alt="Default Male Profile">
+                    {% elif user.gender == 'female' %}
+                        <img loading="lazy" src="{% static 'profile_photos/woman.png' %}" class="h-16 w-16 rounded-full mx-auto mb-2 object-cover" alt="Default Female Profile">
+                    {% else %}
+                        <img loading="lazy" src="{% static 'profile_photos/default.png' %}" class="h-16 w-16 rounded-full mx-auto mb-2 object-cover" alt="Default Profile">
+                    {% endif %}
+                {% endif %}
+            
+                <!-- 👤 User Name -->
+                <p class="font-semibold mt-2">{{ user.get_full_name }}</p>
+            
+                <!-- 🧠 Role Info (Smart Teacher Handling) -->
+                <p class="text-xs text-gray-300 uppercase mt-1">
+                    {% if user.role == 'teacher' and user.teacher %}
+                        {% if user.teacher.teacher_role == "Other" and user.teacher.custom_teacher_role %}
+                            {{ user.teacher.custom_teacher_role }}
+                        {% else %}
+                            {{ user.teacher.teacher_role }}
+                        {% endif %}
+                    {% else %}
+                        {{ user.get_role_display }}
+                    {% endif %}
+                </p>
+            
+                <!-- 📚 Academic Year + Last Login -->
+                <p class="text-xs text-gray-400 mt-1">Academic Year: {{ current_year.year }}</p>
+                <p class="text-xs text-gray-500 mt-1">Last login: {{ user.last_login|date:"M d, Y H:i" }}</p>
+            
+                <!-- ⚙️ Profile Settings Links -->
+                <div class="mt-4 space-y-2 text-sm">
+                    <a href="{% url 'users:role_dashboard' %}" class="block px-3 py-2 rounded bg-blue-800 hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Dashboard Home">
+                        <i class="fas fa-home mr-2"></i> Dashboard Home
+                    </a>
+            
+                    <a href="{% url 'users:view_profile' %}" class="block px-3 py-2 rounded bg-blue-800 hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="View Profile">
+                        <i class="fas fa-user mr-2"></i> View Profile
+                    </a>
+            
+                    <a href="{% url 'users:edit_profile' %}" class="block px-3 py-2 rounded bg-blue-800 hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Edit Profile">
+                        <i class="fas fa-edit mr-2"></i> Edit Profile
+                    </a>
+            
+                    <a href="{% url 'users:change_password' %}" class="block px-3 py-2 rounded bg-blue-800 hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Change Password">
+                        <i class="fas fa-key mr-2"></i> Change Password
+                    </a>
+            
+                    <!-- 🔻 Separation Line -->
+                    <hr class="my-3 border-blue-700">
+            
+                    <!-- 🚪 Logout -->
+                    <form method="post" action="{% url 'users:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full text-left px-3 py-2 rounded bg-red-600 hover:bg-red-500 transition focus:ring-2 focus:ring-offset-2 focus:ring-red-500" aria-label="Logout">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            
+            </div>
+            
+
+            <!-- 🧭 Role-Specific Navigation -->
+            <div class="p-4 space-y-2">
+                {% block sidebar_nav_items %}
+                <!-- Specific dashboard navs inserted here -->
+                    {% if user.role == 'admin' %}
+                        {% include 'sidebars/admin_sidebar.html' %}
+                
+                    {% elif user.role == 'teacher' %}
+                        {% if user.teacher %}
+                            {% if user.teacher.teacher_role == 'Principal' %}
+                                {% include 'sidebars/principal_sidebar.html' %}
+                            {% elif user.teacher.teacher_role == 'Vice Principal' %}
+                                {% include 'sidebars/vice_principal_sidebar.html' %}
+                            {% elif user.teacher.teacher_role == 'HOD' %}
+                                {% include 'sidebars/hod_sidebar.html' %}
+                            {% elif user.teacher.teacher_role == 'Classroom Teacher' %}
+                                {% include 'sidebars/classroom_teacher_sidebar.html' %}
+                            {% elif user.teacher.teacher_role == 'Subject Teacher' %}
+                                {% include 'sidebars/subject_teacher_sidebar.html' %}
+                            {% else %}
+                                {% include 'sidebars/fallback_teacher_sidebar.html' %}
+                            {% endif %}
+                        {% else %}
+                            {% include 'sidebars/fallback_teacher_sidebar.html' %}
+                        {% endif %}
+                
+                    {% elif user.role == 'student' %}
+                        {% include 'sidebars/student_sidebar.html' %}
+                
+                    {% elif user.role == 'parent' %}
+                        {% include 'sidebars/parent_sidebar.html' %}
+                
+                    {% else %}
+                        {% include 'sidebars/fallback_sidebar.html' %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+
+        </aside>
+
+        <!-- 📄 MAIN CONTENT -->
+        <main class="flex-1 md:ml-64 p-6">
+            {% block content %}
+            <div class="text-center text-gray-500">
+                <p class="text-lg">Welcome to your dashboard, {{ user.first_name }}.</p>
+            </div>
+            {% endblock %}
+        </main>
+    </div>
+
+    <!-- 📎 Sticky Footer -->
+    <footer class="bg-white border-t border-gray-300 text-sm text-center py-3 mt-auto shadow-inner sticky bottom-0 z-10">
+        <span class="text-gray-500">© {{ school_settings.school_name|default:"BIVGS" }} {{ now|date:"Y" }}. All rights reserved.</span>
+    </footer>
+
+    <!-- 🎯 Sidebar Toggle Script -->
+    <script>
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        toggleBtn?.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

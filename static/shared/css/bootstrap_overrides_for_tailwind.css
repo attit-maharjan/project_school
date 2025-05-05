@@ -1,0 +1,326 @@
+/* ==========================================================================
+   CUSTOM STYLESHEET FOR TAILWIND-BASED DJANGO PROJECT
+   ==========================================================================
+
+   ✨ Purpose:
+   This stylesheet defines custom utility classes to complement Tailwind CSS
+   when using the CDN version, which does not allow @apply or Tailwind config
+   extension. These custom classes help reduce repetition and promote
+   maintainability.
+
+   ✅ What to Customize Here:
+   - Colors (e.g., text colors, background colors)
+   - Fonts (font-family, size for headings or branding)
+   - Button styles (visual only — not layout/position)
+   - Reusable component appearance (e.g., cards, tags, badges)
+   - Shadow, border, hover transitions
+
+   ❌ What NOT to Customize Here:
+   - Layout (flex, grid, spacing, positioning)
+   - Responsiveness (breakpoints, screen-based styles)
+   - Visibility or Tailwind-specific utilities
+
+   ⚠️ Warning:
+   DO NOT load full Bootstrap alongside Tailwind.
+   - Bootstrap and Tailwind may conflict (e.g., `container`, `text-*`)
+   - Bootstrap inflates CSS size and creates inconsistency in design language
+
+   💡 Naming Convention:
+   - All custom classes are prefixed with `bs-` to prevent conflicts and clarify intent
+     (e.g., `.bs-h2-color`, `.bs-card`, `.bs-btn-primary`)
+   - Keep naming semantic and consistent
+
+   ========================================================================== */
+
+/* Typography */
+.bs-h2-color {
+    color: #8B0000; /* Deep Red for H2 headers (e.g., School Name Portal) */
+    text-transform: uppercase; /* Convert text to uppercase */
+}
+
+  
+  .bs-heading-font {
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+  }
+  
+  /* Buttons */
+  .bs-btn-primary {
+    background-color: #1d4ed8; /* Tailwind blue-700 */
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bs-btn-primary:hover {
+    background-color: #1e40af; /* Tailwind blue-800 */
+  }
+  
+  /* Cards */
+  .bs-card {
+    background-color: #fff;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6; /* Tailwind gray-100 */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .bs-card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Tags / Labels */
+  .bs-tag {
+    font-size: 0.75rem;
+    font-family: monospace;
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    color: #6b7280; /* Tailwind gray-500 */
+  }
+  
+  /* Images */
+  .bs-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 1px solid #d1d5db; /* Tailwind gray-300 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  /* ===========================================
+   🎨 CUSTOM COLOR PALETTE EXTENSIONS
+   For overriding Tailwind or Bootstrap clashes
+=========================================== */
+
+.bs-navbar-bg {
+  background-color: #03081b; /* Deep corporate red */
+}
+
+.bs-navbar-bg-blue {
+  background-color: #1D4ED8; /* Tailwind's preferred Blue-700 */
+}
+
+.bs-navbar-text-white {
+  color: white;
+}
+
+
+/* ===================================
+   📘 Custom Sidebar Theme Overrides
+=================================== */
+
+.bs-sidebar-bg {
+  background-color: #010c29; /* Tailwind's blue-900 */
+}
+
+.bs-sidebar-text {
+  color: #F3F4F6; /* Tailwind's gray-100 */
+}
+
+.bs-sidebar-hover:hover {
+  background-color: #1E40AF; /* Tailwind's blue-800 */
+}
+
+
+/* ================================
+   📘 SIDEBAR LINK STYLES
+   ================================= */
+
+/* Base sidebar link style */
+.bs-sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;           /* Tailwind's py-2 px-4 */
+  border-radius: 0.375rem;       /* Tailwind's rounded */
+  color: #F3F4F6;                /* Light text */
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect for sidebar link */
+.bs-sidebar-link:hover {
+  background-color: #1E40AF;     /* Tailwind's blue-800 */
+}
+
+
+/* =====================================================
+   🎯 BUTTON STYLES (Custom Primary Buttons)
+   =====================================================
+
+   Purpose:
+   - Define primary action buttons used across the dashboard
+   - Maintain consistent branding with custom colors and hover/focus effects
+   - Override Tailwind or Bootstrap default button looks (without conflicts)
+
+   Naming Convention:
+   - Standard button uses `.btn-primary`
+   - Disabled button appearance handled via `.btn-primary:disabled`
+
+   Notes:
+   - Use this class on buttons like "Save", "Submit", "Update"
+   - Supports light/dark mode neutral contrast
+   ===================================================== */
+
+/* Primary Button */
+.bs-btn-primary {
+  background-color: #2563EB; /* Custom Primary Blue (Tailwind blue-600) */
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  border-radius: 0.5rem; /* rounded-md */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: background-color 0.3s ease-in-out; /* smooth hover transition */
+}
+
+/* Primary Button Hover State */
+.bs-btn-primary:hover {
+  background-color: #1D4ED8; /* Darker Blue on Hover (Tailwind blue-700) */
+}
+
+/* Primary Button Focus State */
+.bs-btn-primary:focus {
+  outline: 2px solid #2563EB; /* Focus ring */
+  outline-offset: 2px;
+}
+
+/* Primary Button Disabled State */
+.bs-btn-primary:disabled {
+  background-color: #9CA3AF; /* Tailwind gray-400 */
+  cursor: not-allowed;
+}
+
+
+
+
+/* ==========================================================================
+    BIVGS - Bootstrap Overrides and Tailwind Customizations
+    File: bootstrap_overrides_for_tailwind.css
+    Purpose: 
+    - Sidebar button role-based color theming
+    - Future space for overriding Bootstrap + Tailwind defaults
+========================================================================== */
+
+/* ==========================================================================
+    🌈 Sidebar Buttons Color Scheme (Role Specific)
+========================================================================== */
+
+/* 🎓 Student Buttons */
+.bs-student-btn {
+  background-color: #2563eb; /* blue-600 */
+  color: #ffffff;
+}
+.bs-student-btn:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
+
+/* 🏛️ Admin Buttons */
+.bs-admin-btn {
+  background-color: #e11d48; /* rose-600 */
+  color: #ffffff;
+}
+.bs-admin-btn:hover {
+  background-color: #be123c; /* rose-700 */
+}
+
+/* 👨‍👩‍👧 Parent Buttons */
+.bs-parent-btn {
+  background-color: #0d9488; /* teal-600 */
+  color: #ffffff;
+}
+.bs-parent-btn:hover {
+  background-color: #0f766e; /* teal-700 */
+}
+
+/* 👑 Principal Buttons */
+.bs-principal-btn {
+  background-color: #4f46e5; /* indigo-600 */
+  color: #ffffff;
+}
+.bs-principal-btn:hover {
+  background-color: #4338ca; /* indigo-700 */
+}
+
+/* 🧑‍💼 Vice Principal Buttons */
+.bs-vice-principal-btn {
+  background-color: #f59e0b; /* amber-500 */
+  color: #ffffff;
+}
+.bs-vice-principal-btn:hover {
+  background-color: #d97706; /* amber-600 */
+}
+
+/* 🧠 Head of Department (HOD) Buttons */
+.bs-hod-btn {
+  background-color: #7c3aed; /* violet-600 */
+  color: #ffffff;
+}
+.bs-hod-btn:hover {
+  background-color: #6d28d9; /* violet-700 */
+}
+
+/* 🏫 Classroom Teacher Buttons */
+.bs-classroom-teacher-btn {
+  background-color: #0284c7; /* sky-600 */
+  color: #ffffff;
+}
+.bs-classroom-teacher-btn:hover {
+  background-color: #0369a1; /* sky-700 */
+}
+
+/* 📚 Subject Teacher Buttons */
+.bs-subject-teacher-btn {
+  background-color: #059669; /* emerald-600 */
+  color: #ffffff;
+}
+.bs-subject-teacher-btn:hover {
+  background-color: #047857; /* emerald-700 */
+}
+
+/* ==========================================================================
+  🚀 End of Sidebar Buttons Customizations
+========================================================================== */
+
+
+
+
+/* ============================================================
+📁 Section: Report Comment Background Colors
+Purpose: Apply subtle background colors based on grade feedback.
+Prefix: bs-bg-*
+============================================================ */
+
+.bs-bg-success   { background-color: #198754 !important; }  /* A-grade: Green */
+.bs-bg-primary   { background-color: #0d6efd !important; }  /* B-grade: Blue */
+.bs-bg-info      { background-color: #0dcaf0 !important; }  /* C-grade: Light Blue */
+.bs-bg-warning   { background-color: #ffc107 !important; }  /* D-grade: Yellow */
+.bs-bg-danger    { background-color: #dc3545 !important; }  /* E/F-grade: Red */
+
+
+/* ============================================================
+📁 Section: Left Border Indicator Colors (Optional)
+Purpose: Use a colored vertical bar to emphasize grade-based messages.
+Prefix: bs-border-*
+============================================================ */
+
+.bs-border-success { border-left-color: #198754 !important; }
+.bs-border-primary { border-left-color: #0d6efd !important; }
+.bs-border-info    { border-left-color: #0dcaf0 !important; }
+.bs-border-warning { border-left-color: #ffc107 !important; }
+.bs-border-danger  { border-left-color: #dc3545 !important; }
+
+
+/* ============================================================
+📁 Section: Border Width Utility
+Purpose: Enforce consistent left border width for comment blocks.
+Applies to: use with `.border-start` (Bootstrap) and `bs-border-*`
+============================================================ */
+
+.border-start.border-4 {
+  border-left-width: 0.4rem !important;  /* 4px left border */
+}

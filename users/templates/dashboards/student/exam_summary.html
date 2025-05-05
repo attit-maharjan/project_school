@@ -1,0 +1,51 @@
+{% extends 'base/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}
+    {{ user.get_full_name|default:"Student" }} Exam Summary | {{ school_settings.school_name|default:"School" }}
+{% endblock %}
+
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">📄 My Exam Summary</h1>
+        <p class="mt-2 text-sm text-gray-600">An overview of your exam performance for {{ summary.academic_year }} in {{ summary.class_group }}.</p>
+    </div>
+
+    {% if summary.exams %}
+    <div class="overflow-x-auto bg-white shadow-lg rounded-xl">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exam Type</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Max Marks</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Grade</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for exam in summary.exams %}
+                <tr class="hover:bg-blue-50 transition duration-150 ease-in-out">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ exam.subject }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ exam.exam_type }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">{{ exam.title }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ exam.date_conducted }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-600">{{ exam.max_marks }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-blue-600">{{ exam.score }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-bold text-indigo-600">{{ exam.grade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="p-6 text-center text-gray-500 bg-white rounded-lg shadow-sm">
+            No exam records found for the current academic year.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

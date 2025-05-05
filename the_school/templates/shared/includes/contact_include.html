@@ -1,0 +1,85 @@
+{% extends 'shared/includes/public_pages_base.html' %}
+{% load static %}
+
+<!-- ============================================
+     Public-facing template used for frontend pages.
+     Pages using this include: Home (index), About, Contact,
+     Privacy Policy, and Terms of Service.
+     Uses shared base template: base_public.html
+     ============================================ -->
+
+<!-- Carousel Container inside bivgs-feature -->
+
+<!-- Just a heading and a single Paragraph -->
+<!-- EG: <h2 class="bivgs-feature-heading">First Feature Heading <span class="text-muted">It’ll blow your mind.</span></h2> -->
+<!-- EG: <p class="bivgs-feature-description">Some great placeholder content for the first feature here. Imagine some exciting prose here.</p> -->
+{% block page_header_description %}
+    <h2 class="bivgs-feature-heading">
+        Contact Information
+    </h2>
+
+    <div class="bivgs-feature-description">
+        <p>
+            <i class="fas fa-map-marker-alt deep-blue me-2"></i>
+            <strong>Address:</strong> 
+            {% if school_settings.address %}
+                {{ school_settings.address|safe }}
+            {% else %}
+                <span class="text-muted">Address not available</span>
+            {% endif %}
+        </p>
+
+        <p>
+            <i class="fas fa-phone-alt deep-blue me-2"></i>
+            <strong>Contact Number:</strong> 
+            {% if school_settings.contact_number %}
+                {{ school_settings.contact_number }}
+            {% else %}
+                <span class="text-muted">Contact number not available</span>
+            {% endif %}
+        </p>
+
+        <p>
+            <i class="fas fa-envelope deep-blue me-2"></i>
+            <strong>Email Address:</strong> 
+            {% if school_settings.email_address %}
+                {{ school_settings.email_address }}
+            {% else %}
+                <span class="text-muted">Email address not available</span>
+            {% endif %}
+        </p>
+
+        {% if school_settings.website_url %}
+        <p>
+            <i class="fas fa-link deep-blue me-2"></i>
+            <strong>Website:</strong>
+            <a href="{{ school_settings.website_url }}" target="_blank" class="text-secondary text-decoration-none" style="word-wrap: break-word;">
+                {{ school_settings.website_url }}
+            </a>
+        </p>        
+        
+        {% else %}
+            <p><span class="text-muted">Website not available</span></p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+<!-- Image symbolizing summary of the page e.g. contacts. size 800 * 663 -->
+<!-- Example: <img src="{% static 'shared/images/index_banner_800_663.png' %}" alt="Index Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image"> -->
+{% block page_summary_image %}
+     <img src="{% static 'shared/images/contact_banner_800_663.png' %}" alt="Contact us Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image">
+{% endblock %}
+
+<!-- All page details here -->
+<!-- Example usage:
+     <h2 class="bivgs-feature-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+     <p class="bivgs-feature-description">Another feature? Of course. More placeholder content here to give you an idea of how this layout works with actual real-world content.</p>
+-->
+{% block page_details %}
+    {% include 'shared/includes/call_to_action_include.html' %}
+{% endblock %}
+
+
+    

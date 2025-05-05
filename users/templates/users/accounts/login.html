@@ -1,0 +1,11 @@
+<!-- templates/users/accounts/login.html -->
+
+{% extends 'base/auth_base.html' %}
+
+{% block auth_image_block %}
+  {% include 'users/accounts/login_image.html' %}
+{% endblock %}
+
+{% block auth_content_block %}
+  {% include 'users/accounts/login_include.html' %}
+{% endblock %}

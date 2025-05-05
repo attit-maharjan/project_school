@@ -1,0 +1,21 @@
+name,department_code,grade_reference
+Introduction To Algebra I,MAT,G9
+Foundations of English Literature,ENG,G9
+General Science I,SCI,G9
+Basics of Computing,ICT,G9
+World History I,HUM,G9
+Linear Algebra,MAT,G10
+Intermediate English Composition,ENG,G10
+Biology Essentials,SCI,G10
+Introduction to Programming,ICT,G10
+Cultural Studies,HUM,G10
+Advanced Algebra II,MAT,G11
+English Literature & Analysis,ENG,G11
+Chemistry Foundations,SCI,G11
+Data Structures,ICT,G11
+Modern History,HUM,G11
+Calculus I,MAT,G12
+Advanced Writing & Rhetoric,ENG,G12
+Physics I,SCI,G12
+Software Development,ICT,G12
+Philosophy & Ethics,HUM,G12

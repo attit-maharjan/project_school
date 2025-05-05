@@ -1,0 +1,63 @@
+{% extends 'shared/nav_base.html' %}
+
+{% block navbar_links %}
+  <li class="nav-item">
+    <a class="nav-link public-navbar-link" href="{% url 'the_school:index' %}">
+      <i class="fas fa-home me-1"></i>Home
+    </a>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle public-navbar-link" href="#" id="infoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fas fa-info-circle me-1"></i>Info
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="infoDropdown">
+      <li><a class="dropdown-item" href="{% url 'the_school:about' %}"><i class="fas fa-user-friends me-2"></i>About Us</a></li>
+      <li><a class="dropdown-item" href="{% url 'the_school:privacy_policy' %}"><i class="fas fa-shield-alt me-2"></i>Privacy Policy</a></li>
+      <li><a class="dropdown-item" href="{% url 'the_school:terms_of_service' %}"><i class="fas fa-file-contract me-2"></i>Terms of Service</a></li>
+    </ul>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link public-navbar-link" href="{% url 'the_school:contact' %}">
+      <i class="fas fa-envelope me-1"></i>Contact
+    </a>
+  </li>
+
+  {% if user.is_authenticated %}
+  <li class="nav-item">
+    <a class="nav-link public-navbar-link" href="{% url 'users:role_dashboard' %}">
+      <i class="fas fa-tachometer-alt me-2"></i>My Portal
+    </a>
+  </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle d-flex align-items-center public-navbar-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{{ user.profile_image.url }}" class="rounded-circle me-2" width="32" height="32" alt="Profile Image">
+        {{ user.first_name }}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+
+        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+        <li>
+          <form action="{% url 'users:logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="dropdown-item border-0 bg-transparent">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+    </li>
+  {% else %}
+    <li class="nav-item">
+      <a class="nav-link public-navbar-link" href="{% url 'users:login' %}">
+        <i class="fas fa-sign-in-alt me-1"></i>Login
+      </a>
+    </li>
+  {% endif %}
+{% endblock %}
+
+
+
+
+

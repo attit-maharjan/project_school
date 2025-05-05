@@ -1,0 +1,116 @@
+{% extends "base/base_dashboard.html" %}
+{% load static %}
+
+{% block title %}
+    {{ user.get_full_name|default:"Student" }} Dashboard | {{ school_settings.school_name|default:"School" }}
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Current Class Group</h2>
+        <p class="text-2xl text-blue-600 font-bold">{{ classgroup.name|default:"-" }}</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">My Average Score</h2>
+        <p class="text-2xl text-green-600 font-bold" id="scoreCounter">{{ average_score }}</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Total Subjects</h2>
+        <p class="text-2xl text-purple-600 font-bold" id="subjectCounter">{{ subjects_count }}</p>
+    </div>
+
+</div>
+
+<div class="mt-10">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Performance Overview</h2>
+    <div class="bg-white p-6 rounded-2xl shadow shadow-blue-100">
+        <canvas id="performanceChart" height="100"></canvas>
+    </div>
+
+    <!-- 🔑 Subject Key -->
+<div class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Subject Key</h3>
+    <ul class="bg-white rounded-lg shadow divide-y divide-gray-200">
+        {% for code, name in subject_code_name_map.items %}
+            <li class="p-2"><span class="font-mono text-blue-700">{{ code }}</span> = {{ name }}</li>
+        {% empty %}
+            <li class="p-2 text-gray-400">No subjects found.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    function animateCounter(id, endValue, duration = 1500) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let start = 0;
+        const increment = endValue / (duration / 16);
+        function update() {
+            start += increment;
+            if (start < endValue) {
+                el.innerText = Math.floor(start);
+                requestAnimationFrame(update);
+            } else {
+                el.innerText = endValue;
+            }
+        }
+        update();
+    }
+
+    animateCounter("scoreCounter", {{ average_score|default:0 }});
+    animateCounter("subjectCounter", {{ subjects_count|default:0 }});
+
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const codeNameMap = {{ subject_code_name_map|safe }};
+
+    const performanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ exam_labels|safe }},
+            datasets: [{
+                label: 'My Scores',
+                data: {{ exam_scores|safe }},
+                borderColor: '#1e3a8a',
+                backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+            }]
+        },
+        options: {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            const code = context[0].label;
+                            return `${code} — ${codeNameMap[code]}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

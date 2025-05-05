@@ -1,0 +1,46 @@
+{% extends 'base/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}
+  {{ user.get_full_name|default:"Student" }} Subject Comments | {{ school_settings.school_name|default:"School" }}
+{% endblock %}
+
+{% block content %}
+<!-- ✅ Wrapper Container -->
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+  <!-- 📌 Page Title -->
+  <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">💬 Subject Performance Comments</h1>
+
+  <!-- 🔁 Loop Through Each Comment -->
+  <div class="space-y-6">
+    {% for comment in comments %}
+    <div class="relative border-l-4 rounded-md shadow bg-white p-6 
+      {% if comment.grade == 'A' %}border-green-500
+      {% elif comment.grade == 'B' %}border-blue-500
+      {% elif comment.grade == 'C' %}border-cyan-500
+      {% elif comment.grade == 'D' %}border-yellow-500
+      {% else %}border-red-500{% endif %}">
+
+      <!-- 🏷️ Title and Badge -->
+      <div class="flex justify-between items-start mb-2">
+        <h2 class="text-base sm:text-lg font-semibold text-gray-800">
+          {{ comment.subject }} — {{ comment.exam_title }}
+        </h2>
+        <span class="inline-block text-xs sm:text-sm font-semibold text-white rounded-full px-3 py-1
+          {% if comment.grade == 'A' %}bg-green-500
+          {% elif comment.grade == 'B' %}bg-blue-500
+          {% elif comment.grade == 'C' %}bg-cyan-500
+          {% elif comment.grade == 'D' %}bg-yellow-500 text-gray-800
+          {% else %}bg-red-500{% endif %}">
+          Grade {{ comment.grade }}
+        </span>
+      </div>
+
+      <!-- 💬 Comment Body -->
+      <p class="text-sm sm:text-base text-gray-700 leading-relaxed">{{ comment.comment }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

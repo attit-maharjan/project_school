@@ -1,0 +1,62 @@
+{% extends 'shared/includes/public_pages_base.html' %}
+{% load static %}
+
+<!-- ============================================
+     Public-facing template used for frontend pages.
+     Pages using this include: Home (index), About, Contact,
+     Privacy Policy, and Terms of Service.
+     Uses shared base template: base_public.html
+     ============================================ -->
+
+<!-- Carousel Container inside bivgs-feature -->
+
+<!-- Just a heading and a single Paragraph -->
+<!-- EG: <h2 class="bivgs-feature-heading">First Feature Heading <span class="text-muted">It’ll blow your mind.</span></h2> -->
+<!-- EG: <p class="bivgs-feature-description">Some great placeholder content for the first feature here. Imagine some exciting prose here.</p> -->
+{% block page_header_description %}
+     <h2 class="bivgs-feature-heading">Welcome to:  <span class="text-muted">{{ school_settings.school_name|default:"BIVGS" }}</span></h2>
+
+     <p class="bivgs-feature-description">Est. {{ school_settings.established_year|default:2025 }}</p>
+
+
+     <p class="bivgs-feature-description">{{ school_settings.homepage_intro|default:"Your Ultimate School Management System!" }}</p>
+
+
+
+
+     <!-- School Motto Section -->
+     <!-- School Motto Section with Poppins Font and Rounded Corners -->
+     <div class="container-fluid bg-dark text-white py-5 text-center rounded-4">
+          <div class="container">
+          <h2 class="display-4 font-weight-bold mb-4" style="font-family: 'Poppins', sans-serif;">
+               <i class="fas fa-quote-left text-primary me-3"></i> {{ school_settings.school_motto }} <i class="fas fa-quote-right text-primary ms-3"></i>
+          </h2>
+          <p class="lead mb-0" style="font-family: 'Poppins', sans-serif;">Our guiding philosophy and vision for the future.</p>
+          </div>
+     </div>
+ 
+     
+ 
+{% endblock %}
+
+<!-- Image symbolizing summary of the page e.g. contacts. size 800 * 663 -->
+<!-- Example: <img src="{% static 'shared/images/index_banner_800_663.png' %}" alt="Index Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image"> -->
+{% block page_summary_image %}
+     <img src="{% static 'shared/images/index_banner_1024_1536.png' %}" alt="Index Banner" class="img-fluid rounded mx-auto d-block bivgs-feature-image">
+{% endblock %}
+
+<!-- All page details here -->
+<!-- Example usage:
+     <h2 class="bivgs-feature-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+     <p class="bivgs-feature-description">Another feature? Of course. More placeholder content here to give you an idea of how this layout works with actual real-world content.</p>
+-->
+{% block page_details %}
+     <h2 class="bivgs-feature-heading">A Portal for Students, Parents, Teachers, and Administrators</h2>
+
+     
+     <p class="bivgs-feature-description">This portal is powered by BIVGS, an advanced platform that streamlines communication and management for students, parents, teachers, and administrators. With BIVGS, accessing grades, schedules, announcements, and academic resources has never been easier, ensuring that everyone stays connected and informed.</p>
+
+{% endblock %}
+
+
+    

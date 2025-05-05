@@ -1,0 +1,311 @@
+/* =========================================================== */
+/* BIVGS - Public Navbar Styles                                */
+/* Custom styles for public-facing navigation bar              */
+/* Location: static/the_school/css/custom_styles.css           */
+/* =========================================================== */
+
+/* -- Base navbar with blur effect -- */
+.public-navbar-blur {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* -- Navbar brand styles -- */
+.public-navbar-brand img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* -- Navbar link styles -- */
+.public-navbar-link {
+    font-weight: 500;
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.public-navbar-link:hover {
+    color: #ffc107 !important;
+}
+
+/* -- Profile image in navbar -- */
+.public-navbar-profile-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* -- Remove default toggle arrow from dropdown -- */
+.public-navbar .dropdown-toggle::after {
+    display: none;
+}
+
+
+
+
+
+/* ======================================================================= */
+/* BIVGS - Public Footer Styles                                            */
+/* Polished, responsive, professional styles for the public-facing footer */
+/* Location: static/the_school/css/public_footer.css                       */
+/* ======================================================================= */
+
+/* Google Font (Inter or fallback) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.public-footer {
+    background-color: #000; /* Strong contrast */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-family: 'Inter', sans-serif;
+    color: #e4e6eb;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Footer links */
+.public-footer-link {
+    color: #cfd2d6;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.public-footer-link:hover {
+    color: #1e90ff;
+    text-decoration: underline;
+}
+
+/* Social media icons */
+.public-social-icon {
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    color: #ffffff;
+    background-color: #343a40;
+    display: inline-block;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.public-social-icon:hover {
+    background-color: #1e90ff;
+    transform: translateY(-3px);
+}
+
+/* Footer section titles */
+.public-footer-section-title,
+.public-footer h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: #ffffff;
+}
+
+/* Footer paragraphs */
+.public-footer p,
+.public-footer li {
+    font-size: 0.95rem;
+    color: #cfd2d6;
+    margin-bottom: 0.5rem;
+}
+
+/* Contact links */
+.public-footer a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #cfd2d6;
+}
+
+.public-footer a:hover {
+    color: #1e90ff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .public-footer {
+        font-size: 0.9rem;
+    }
+
+    .public-footer-section-title,
+    .public-footer h5 {
+        font-size: 1rem;
+    }
+
+    .public-social-icon {
+        margin: 0 5px;
+    }
+
+    .public-footer p,
+    .public-footer-link,
+    .public-footer a {
+        font-size: 0.9rem;
+    }
+}
+
+
+
+/* ============================================= */
+/* Accreditation Section - Responsive Styling    */
+/* Location: static/the_school/css/custom_styles.css */
+/* ============================================= */
+
+.public-accreditation-section {
+    background-color: rgba(108, 117, 125, 0.75); /* Bootstrap's secondary with opacity */
+    color: #f8f9fa;
+    padding: 2rem 1.5rem;
+    border-radius: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Make text consistent and polished */
+.public-accreditation-section table,
+.public-accreditation-section th,
+.public-accreditation-section td {
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.public-accreditation-section th {
+    font-weight: 600;
+}
+
+.public-accreditation-section a {
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.public-accreditation-section a:hover {
+    text-decoration: underline;
+}
+
+.public-accreditation-section .badge {
+    font-size: 0.75rem;
+    padding: 0.4em 0.6em;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .public-accreditation-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .public-accreditation-section table {
+        font-size: 0.85rem;
+    }
+
+    .public-accreditation-section .badge {
+        font-size: 0.7rem;
+    }
+}
+
+
+/* =========================================================== */
+/* BIVGS - Main Content Layout Base                            */
+/* Custom layout styles for main_content_base.html             */
+/* =========================================================== */
+
+/* =========================================================== */
+/* BIVGS - Main Content Base Layout                           */
+/* Custom layout styles for main_content_base.html             */
+/* =========================================================== */
+
+/* -- Base Layout Section -- */
+.main-layout-section {
+    background: linear-gradient(135deg, #f0f4f8, #ffffff); /* Soft gradient for a clean, modern look */
+    min-height: 80vh;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* -- Main Header Styles -- */
+.main-layout-header h1 {
+    color: #b33909; /* Strong dark color for headings */
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    animation: slideDown 1s ease-out; /* Animation for smooth title appearance */
+}
+
+.main-layout-header p {
+    color: #6c757d; /* Soft color for the paragraph text */
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* -- Card Layout for Content Section -- */
+.main-layout-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 1200px; /* Set a max-width for large screens */
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.main-layout-content .card {
+    background-color: #ffffff;
+    border: 1px solid #e4e6eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.main-layout-content .card:hover {
+    transform: translateY(-5px); /* Elevates the card on hover */
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+
+  /* Animations */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-title {
+    animation: slideDown 1s ease-out;
+  }
+  
+  .animate-fadein {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+
+  /* Class for Corporate Deep Blue */
+.deep-blue {
+    color: #003366 !important;
+  }
+  
+  /* Class for Corporate Deep Red */
+  .deep-red {
+    color: #8B0000 !important;
+  }
+  

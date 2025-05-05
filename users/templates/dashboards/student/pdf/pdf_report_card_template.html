@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ user.get_full_name }} - Report Card </title>
+  <style>
+    body {
+      font-family: DejaVu Sans, sans-serif;
+      font-size: 12px;
+      color: #333;
+      padding: 30px;
+    }
+    .header, .section {
+      margin-bottom: 25px;
+    }
+    .logo {
+      width: 90px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc; /* Default border color for general tables */
+      padding: 6px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .chart {
+      page-break-inside: avoid;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+    img.chart-img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+
+    /* Table Title Bar Styling */
+    .table-title-bar {
+        background-color: #333; /* Dark background */
+        color: #4caf50;         /* Cool green font color */
+        font-size: 16px;        /* Larger font size */
+        font-weight: bold;      /* Bold font */
+        padding: 5px;          /* Padding for spacing */
+        text-align: center;     /* Centered text */
+    }
+
+    /* Student Information Table */
+    .th-student-info {
+        background-color: #007bff; /* Corporate blue background */
+        color: white;              /* White text */
+        font-weight: bold;         /* Bold font */
+        font-size: 16px;           /* Larger font size */
+        padding: 5px;             /* Padding for spacing */
+        text-align: center;        /* Centered text */
+        border: 1px solid #007bff; /* Corporate blue border color */
+    }
+
+    .table-student-info {
+        border: 1px solid #007bff; /* Corporate blue border for data cells */
+    }
+
+    /* Performance Summary Table */
+    .th-performance-summary {
+        background-color: #dc3545; /* Corporate red background */
+        color: white;              /* White text */
+        font-weight: bold;         /* Bold font */
+        font-size: 16px;           /* Larger font size */
+        padding: 5px;             /* Padding for spacing */
+        text-align: center;        /* Centered text */
+        border: 1px solid #dc3545; /* Corporate red border color */
+    }
+
+    .table-performance-summary {
+        border: 1px solid #dc3545; /* Corporate red border for data cells */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header" align="center">
+    <h1>{{ school_settings.school_name }}</h1>  <!-- Access the school name here -->
+    <p><strong>Student Report Card</strong></p>
+  </div>
+
+
+  <!-- Student Info Table -->
+  <div class="section">
+    <table class="table-student-info">
+      <tbody>
+        <!-- First row with labels -->
+        <tr>
+            <th class='th-student-info' colspan="3">Student Information</th>
+        </tr>
+        <tr>
+          <th>Student Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+        <!-- Second row with data -->
+        <tr>
+          <td>{{ user.get_full_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone_number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Performance Summary Table -->
+  <div class="section">
+    <table class="table-performance-summary">
+      <tbody>
+        <!-- First row with labels -->
+        <tr>
+          <th class="th-performance-summary" colspan="5">Performance Summary</th>
+        </tr>
+        <tr>
+            <th>Academic Year</th>
+            <th>Class Group</th>
+            <th>Average Score</th>
+            <th>GPA</th>
+            <th>Final Grade</th>
+        </tr>
+        <!-- Second row with data -->
+        <tr>
+          <td>{{ academic_year }}</td>
+          <td>{{ class_group }}</td>
+          <td>{{ average_score }}</td>
+          <td>{{ overall.gpa }}</td>
+          <td>{{ overall.grade }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Exam Results Table -->
+  <div class="section">
+    <table border="1" cellspacing="0" cellpadding="5" width="100%" class="table-title">
+        <thead>
+          <tr>
+            <th colspan="6" class="table-title-bar">Exams Results</th>
+          </tr>
+          <tr style="background-color: #f0f0f0;">
+            <th>Exam Code</th>
+            <th>Title</th>
+            <th>Max Marks</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in report_card %}
+          <tr>
+            <td>{{ entry.exam_code }}</td>
+            <td>{{ entry.exam_title }}</td>
+            <td>{{ entry.max_marks }}</td>
+            <td>{{ entry.score }}</td>
+            <td>{{ entry.grade }}</td>
+            <td>{{ entry.points }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+
+  <!-- Signature -->
+  <div style="margin-top: 50px;">
+    <p>Generated on {{ today }}</p>
+    <p>Authorized by: ____________________________ [Class Room Teacher {{ class_teacher_name }}]</p>
+  </div>
+
+  <!-- Grade Charts -->
+  {% if report_chart_images %}
+  <div class="section">
+    <p class="section-title">Grade Distribution Charts</p>
+    {% for chart in report_chart_images %}
+    <div class="chart">
+      <p><strong>{{ chart.exam_title }}</strong></p>
+      <img class="chart-img" src="{{ chart.image_base64 }}" alt="Chart">
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</body>
+</html>

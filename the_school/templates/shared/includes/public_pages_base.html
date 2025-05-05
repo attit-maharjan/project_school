@@ -1,0 +1,130 @@
+{% load static %}
+
+<!-- ============================================ -->
+<!-- Public-facing template using base_public.html -->
+<!-- Used by: Home (index), About, Contact, Privacy Policy, Terms of Service -->
+<!-- ============================================ -->
+
+<!-- ============================================ -->
+<!-- BIVGS Carousel: Describes core user groups -->
+<!-- ============================================ -->
+<div class="row bivgs-feature carousel-holder">
+  <div class="col-md-12 public-pages-container">
+
+    <!-- Carousel Component -->
+    <div id="bivgsCarousel" class="carousel slide carousel-fade bivgs-carousel" data-bs-ride="carousel">
+
+      <!-- Carousel Inner Slides -->
+      <div class="carousel-inner text-center">
+
+        <!-- === Parents Slide === -->
+        <div class="carousel-item active bivgs-carousel-item">
+          <div class="bivgs-carousel-content">
+            <h2 class="bivgs-title mb-4">
+              <i class="fas fa-user-friends mb-2 d-block text-primary"></i>
+              For Parents
+            </h2>
+            <ul class="list-unstyled bivgs-feature-list">
+              <li><i class="fas fa-chart-line me-2 text-warning"></i> Track academic progress</li>
+              <li><i class="fas fa-file-alt me-2 text-info"></i> Access student reports</li>
+              <li><i class="fas fa-bullhorn me-2 text-success"></i> Receive school updates</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === Students Slide === -->
+        <div class="carousel-item bivgs-carousel-item">
+          <div class="bivgs-carousel-content">
+            <h2 class="bivgs-title mb-4">
+              <i class="fas fa-user-graduate mb-2 d-block text-success"></i>
+              For Students
+            </h2>
+            <ul class="list-unstyled bivgs-feature-list">
+              <li><i class="fas fa-book-open me-2 text-primary"></i> Access learning resources</li>
+              <li><i class="fas fa-calendar-alt me-2 text-info"></i> View academic schedules</li>
+              <li><i class="fas fa-clipboard-check me-2 text-warning"></i> Review exam results</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === Teachers Slide === -->
+        <div class="carousel-item bivgs-carousel-item">
+          <div class="bivgs-carousel-content">
+            <h2 class="bivgs-title mb-4">
+              <i class="fas fa-chalkboard-teacher mb-2 d-block text-danger"></i>
+              For Teachers
+            </h2>
+            <ul class="list-unstyled bivgs-feature-list">
+              <li><i class="fas fa-tasks me-2 text-info"></i> Manage exams and grading</li>
+              <li><i class="fas fa-user-cog me-2 text-primary"></i> Monitor class performance</li>
+              <li><i class="fas fa-comments me-2 text-success"></i> Communicate with students</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel Controls (Prev/Next) -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#bivgsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#bivgsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+      <!-- Carousel Indicators -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#bivgsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Parents"></button>
+        <button type="button" data-bs-target="#bivgsCarousel" data-bs-slide-to="1" aria-label="Students"></button>
+        <button type="button" data-bs-target="#bivgsCarousel" data-bs-slide-to="2" aria-label="Teachers"></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Main Content Area for Each Public Page -->
+<!-- Uses: Django Template Blocks for Reusability -->
+<!-- ============================================ -->
+
+<main>
+  <div class="container bivgs-marketing">
+
+    <!-- Section Divider -->
+    <hr class="bivgs-divider">
+
+    <!-- === Page Header Section (Left Text, Right Image) === -->
+    <div class="row bivgs-feature">
+      <div class="col-md-7">
+        <!-- Page Heading + Introductory Paragraph -->
+        {% block page_header_description %}
+        {% endblock %}
+      </div>
+      <div class="col-md-5">
+        <!-- Right-aligned Summary Image -->
+        {% block page_summary_image %}
+        {% endblock %}
+      </div>
+    </div>
+
+    <!-- Section Divider -->
+    <hr class="bivgs-divider">
+
+    <!-- === Main Details Section (Full Width Text Content) === -->
+    <div class="row bivgs-feature">
+      <div class="col-md-12">
+        {% block page_details %}
+        
+        {% endblock %}
+      </div>
+    </div>
+
+    <!-- Section Divider -->
+    <hr class="bivgs-divider">
+
+  </div>
+</main>
